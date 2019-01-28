@@ -1,28 +1,52 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Menu from '@material-ui/icons/Menu'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import withStyles from '@material-ui/core/styles/withStyles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import withRoot from './withRoot'
 
-class App extends Component {
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+}
+
+
+class App extends React.Component {
+
   render() {
+    const { classes } = this.props
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Yo, how you doin'?
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <Menu />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Tic Tac Toe
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+          <Paper>
+            <Button variant = "contained" >Yo, Imma Button </Button>
+          </Paper>
+        </AppBar>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default withRoot(withStyles(styles)(App))
