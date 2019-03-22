@@ -1,32 +1,43 @@
-.App {
+.ticTacToeSquare {
+  height: 3em;
+  width: 3em;
+  line-height: 3em;
+  display: inline-block;
+  vertical-align: middle;
   text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.ticTacToeSquare[id$="2"] {
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ticTacToeSquare[id^="b"] {
+  border-right: solid 1px black;
+  border-left: solid 1px black;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+.ticTacToeSquare.markable:hover {
+  background-color: #88ff88;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ticTacToeSquare.movePending {
+  background-image: url("/loading.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.ticTacToeRow {
+  padding: 0;
+  margin: 0;
+}
+
+.ticTacToeSynopsis {
+  margin-top: 1em;
 }
