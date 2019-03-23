@@ -11,12 +11,6 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 })
 
 
-function squareClicked(id) {
-  console.log('click!', id)
-}
-
-
-
 const BoardContainer = connect(
   (store, props) => {
     console.log('mapStateToProps', props)
@@ -37,7 +31,7 @@ const BoardContainer = connect(
 
 const App = () => (
   <div className='App'>
-    <BoardContainer onSquareClick={squareClicked}/>
+    <BoardContainer />
   </div>
 )
 

@@ -11,19 +11,17 @@
 }
 
 .ticTacToeSquare[id$="2"] {
-  border-top: solid 1px black;
-  border-bottom: solid 1px black;
+  border-top: solid 3px #666666;
+  border-bottom: solid 3px #666666;
 }
 
 .ticTacToeSquare[id^="b"] {
-  border-right: solid 1px black;
-  border-left: solid 1px black;
+  border-right: solid 3px #666666;
+  border-left: solid 3px #666666;
 }
 
-
-
 .ticTacToeSquare.markable:hover {
-  background-color: #88ff88;
+  background-color: #66DD66;
 }
 
 .ticTacToeSquare.movePending {
@@ -31,7 +29,6 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-
 
 .ticTacToeRow {
   padding: 0;

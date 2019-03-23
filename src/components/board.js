@@ -19,7 +19,8 @@ const Board = ({ onSquareClick, gameState }) => {
               return (<Square id={id} key={id}
                 onClick={() => onSquareClick(id)}
                 isMarkable = {isMarkable(gameState, id)}
-                isMovePending = {gameState.movePending === id}/>)
+                isMovePending = {gameState.movePending === id}
+                mark={gameState.squares[id].mark}/>)
             })}
           </div>
         )}

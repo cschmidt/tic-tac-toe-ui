@@ -29,20 +29,12 @@ const initialGameState = {
   synopsis: ''
 }
 
-const moveStates = {
-  MOVE_PENDING: 'MOVE_PENDING',
-  MOVE_COMPLETE: 'MOVE_COMPLETE',
-  MOVE_ERROR: 'MOVE_ERROR'
-}
-
 // Reducers
 
 
 const move = (game = initialGameState, action) => {
   debug('move', action, game)
-  var squares = { ...game.squares }
-  var squareId = action.squareId
-  // var isSquareEmpty = squares[squareId] && squares[squareId].mark === ''
+  let squareId = action.squareId
 
   switch (action.type) {
     case actions.SUBMIT_MOVE:
