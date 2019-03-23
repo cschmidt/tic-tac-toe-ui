@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import Square from './square'
 import Synopsis from './synopsis'
 
-const Board = ({ onSquareClick }) => {
+
+const isMarkable = (game, squareId) => {
+  return !game.movePending && !game.squares[squareId].mark
+}
+
+const Board = ({ onSquareClick, gameState }) => {
   return (
     <div>
       <div className='ticTacToeBoard'>
@@ -13,7 +18,8 @@ const Board = ({ onSquareClick }) => {
               let id = col+row
               return (<Square id={id} key={id}
                 onClick={() => onSquareClick(id)}
-                isMarkable = {true}/>)
+                isMarkable = {isMarkable(gameState, id)}
+                isMovePending = {gameState.movePending === id}/>)
             })}
           </div>
         )}

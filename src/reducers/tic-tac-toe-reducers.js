@@ -12,16 +12,17 @@ const debug = (...args) => {
 
 const initialGameState = {
   squares: {
-    a1: { mark: '', moveState: null },
-    a2: { mark: '', moveState: null },
-    a3: { mark: '', moveState: null },
-    b1: { mark: '', moveState: null },
-    b2: { mark: '', moveState: null },
-    b3: { mark: '', moveState: null },
-    c1: { mark: '', moveState: null },
-    c2: { mark: '', moveState: null },
-    c3: { mark: '', moveState: null }
+    a1: { mark: '' },
+    a2: { mark: '' },
+    a3: { mark: '' },
+    b1: { mark: '' },
+    b2: { mark: '' },
+    b3: { mark: '' },
+    c1: { mark: '' },
+    c2: { mark: '' },
+    c3: { mark: '' }
   },
+  movePending: null,
   turn: players.X,
   outcome: outcomes.UNKNOWN,
   winningLine: null,
@@ -46,8 +47,7 @@ const move = (game = initialGameState, action) => {
   switch (action.type) {
     case actions.SUBMIT_MOVE:
       debug('submitMove', squareId, game)
-      squares[squareId] = { ...squares[squareId], moveState: moveStates.MOVE_PENDING }
-      return { ...game, squares }
+      return { ...game, movePending: squareId }
     case 'SERVER_DATA':
       debug('SERVER_DATA', action.state)
       return { ...game, ...action.state }
