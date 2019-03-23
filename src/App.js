@@ -1,16 +1,9 @@
 import './App.css'
 import React from 'react'
-// import Button from '@material-ui/core/Button'
-// import IconButton from '@material-ui/core/IconButton'
-// import Menu from '@material-ui/icons/Menu'
-// import Paper from '@material-ui/core/Paper'
-// import Typography from '@material-ui/core/Typography'
-// import withStyles from '@material-ui/core/styles/withStyles'
-// import AppBar from '@material-ui/core/AppBar'
-// import Toolbar from '@material-ui/core/Toolbar'
-// import withRoot from './withRoot'
 import AWS from 'aws-sdk'
 import Board from './components/board'
+import { connect } from 'react-redux'
+import { submitMove } from './actions/tic-tac-toe-actions'
 
 AWS.config.region = 'us-west-2'
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -22,9 +15,29 @@ function squareClicked(id) {
   console.log('click!', id)
 }
 
+
+
+const BoardContainer = connect(
+  (store, props) => {
+    console.log('mapStateToProps', props)
+    return { gameState: store }
+  },
+  (dispatch, props) => {
+    console.log('mapDispatchToProps', props)
+    return {
+      onSquareClick: (id) => {
+        console.log('onSquareClick', id, props)
+        dispatch(submitMove(id))
+      }
+    }
+  }
+)(Board)
+
+
+
 const App = () => (
   <div className='App'>
-    <Board onSquareClick={squareClicked}/>
+    <BoardContainer onSquareClick={squareClicked}/>
   </div>
 )
 

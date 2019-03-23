@@ -12,7 +12,8 @@ const Board = ({ onSquareClick }) => {
             {['a', 'b', 'c'].map((col) => {
               let id = col+row
               return (<Square id={id} key={id}
-                onClick={() => onSquareClick(id)} />)
+                onClick={() => onSquareClick(id)}
+                isMarkable = {true}/>)
             })}
           </div>
         )}
@@ -23,7 +24,8 @@ const Board = ({ onSquareClick }) => {
 }
 
 Board.propTypes = {
-  onSquareClick: PropTypes.func.isRequired
+  onSquareClick: PropTypes.func.isRequired,
+  gameState: PropTypes.object.isRequired
 }
 
 export default Board
