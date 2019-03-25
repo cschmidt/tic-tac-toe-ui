@@ -39,7 +39,12 @@ const move = (game = initialGameState, action) => {
   switch (action.type) {
     case actions.SUBMIT_MOVE:
       debug('submitMove', squareId, game)
-      return { ...game, movePending: squareId }
+      if (!game.movePending) {
+        return { ...game, movePending: squareId }
+      }
+      else {
+        return game
+      }
     case 'SERVER_DATA':
       debug('SERVER_DATA', action.state)
       return { ...game, ...action.state }
