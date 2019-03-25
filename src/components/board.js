@@ -11,7 +11,7 @@ const isMarkable = (game, squareId) => {
 const Board = ({ onSquareClick, gameState }) => {
   return (
     <div>
-      <div className='ticTacToeBoard'>
+      <div className={'ticTacToeBoard' + (gameState.movePending ? ' movePending' : '')}>
         {[1, 2, 3].map( (row) =>
           <div key={row}>
             {['a', 'b', 'c'].map((col) => {
