@@ -2,6 +2,7 @@
 import { players, outcomes } from '@schmidtdisturbr/tic-tac-toe-api/src/tic-tac-toe.js'
 import { actions } from '../actions/tic-tac-toe-actions'
 
+
 const DEBUG = true
 
 // Utility functions
@@ -34,10 +35,12 @@ const initialGameState = {
 
 const move = (game = initialGameState, action) => {
   debug('move', action, game)
-  let squareId = action.squareId
 
   switch (action.type) {
+    case actions.START_GAME:
+      return game
     case actions.SUBMIT_MOVE:
+      let squareId = action.squareId
       debug('submitMove', squareId, game)
       if (!game.movePending) {
         return { ...game, movePending: squareId }
@@ -45,6 +48,8 @@ const move = (game = initialGameState, action) => {
       else {
         return game
       }
+    case actions.GAME_STARTED:
+      return { ...game, id: action.id }
     case 'SERVER_DATA':
       debug('SERVER_DATA', action.state)
       return { ...game, ...action.state }

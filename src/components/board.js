@@ -8,7 +8,7 @@ const isMarkable = (game, squareId) => {
   return !game.movePending && !game.squares[squareId].mark
 }
 
-const Board = ({ onSquareClick, gameState }) => {
+const Board = ({ onSquareClick, onStartGame, gameState }) => {
   return (
     <div>
       <div className={'ticTacToeBoard' + (gameState.movePending ? ' movePending' : '')}>
@@ -16,7 +16,8 @@ const Board = ({ onSquareClick, gameState }) => {
           <div key={row}>
             {['a', 'b', 'c'].map((col) => {
               let id = col+row
-              return (<Square id={id} key={id}
+              return (<Square id={id}
+                key={id}
                 onClick={() => onSquareClick(id)}
                 isMarkable = {isMarkable(gameState, id)}
                 isMovePending = {gameState.movePending === id}
@@ -25,12 +26,19 @@ const Board = ({ onSquareClick, gameState }) => {
           </div>
         )}
       </div>
+      <div>
+        <button
+          name='startGame'
+          onClick={() => onStartGame()}
+          disabled={gameState.id !== undefined}>Start Game!</button>
+      </div>
       <Synopsis/>
     </div>
   )
 }
 
 Board.propTypes = {
+  onStartGame: PropTypes.func.isRequired,
   onSquareClick: PropTypes.func.isRequired,
   gameState: PropTypes.object.isRequired
 }

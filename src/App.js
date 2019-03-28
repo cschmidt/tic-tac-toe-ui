@@ -3,7 +3,7 @@ import React from 'react'
 import AWS from 'aws-sdk'
 import Board from './components/board'
 import { connect } from 'react-redux'
-import { submitMove } from './actions/tic-tac-toe-actions'
+import { startGame, submitMove } from './actions/tic-tac-toe-actions'
 
 AWS.config.region = 'us-west-2'
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -22,6 +22,9 @@ const BoardContainer = connect(
       onSquareClick: (id) => {
         console.log('onSquareClick', id, props)
         dispatch(submitMove(id))
+      },
+      onStartGame: () => {
+        dispatch(startGame())
       }
     }
   }
