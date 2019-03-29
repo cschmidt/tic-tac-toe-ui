@@ -8,9 +8,11 @@ const startGame = () => ({
   type: actions.START_GAME
 })
 
-const submitMove = (squareId) => ({
+const submitMove = (gameId, squareId, mark) => ({
   type: actions.SUBMIT_MOVE,
-  squareId
+  gameId,
+  squareId,
+  mark
 })
 
 

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-const Square = ({ mark = '', onClick, id, isMarkable, isMovePending = false }) => {
+const Square = ({ mark = '', onClick, id, isMarkable, isMovePending = false, gameState }) => {
   return (
     <span
       id={id}
@@ -14,6 +14,7 @@ const Square = ({ mark = '', onClick, id, isMarkable, isMovePending = false }) =
 Square.propTypes = {
   id: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  gameState: PropTypes.object.isRequired,
   mark: PropTypes.string,
   isMarkable: PropTypes.bool,
   isMovePending: PropTypes.bool

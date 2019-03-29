@@ -13,15 +13,12 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 
 const BoardContainer = connect(
   (store, props) => {
-    console.log('mapStateToProps', props)
     return { gameState: store }
   },
   (dispatch, props) => {
-    console.log('mapDispatchToProps', props)
     return {
-      onSquareClick: (id) => {
-        console.log('onSquareClick', id, props)
-        dispatch(submitMove(id))
+      onSquareClick: (squareId, game) => {
+        dispatch(submitMove(game.id, squareId, game.turn))
       },
       onStartGame: () => {
         dispatch(startGame())

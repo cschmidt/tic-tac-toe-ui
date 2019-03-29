@@ -5,7 +5,11 @@ import Synopsis from './synopsis'
 
 
 const isMarkable = (game, squareId) => {
-  return !game.movePending && !game.squares[squareId].mark
+  return !game.movePending &&
+    game.id &&
+    game.outcome === 'UNKNOWN' &&
+    game.squares[squareId] &&
+    !game.squares[squareId].mark
 }
 
 const Board = ({ onSquareClick, onStartGame, gameState }) => {
@@ -18,10 +22,11 @@ const Board = ({ onSquareClick, onStartGame, gameState }) => {
               let id = col+row
               return (<Square id={id}
                 key={id}
-                onClick={() => onSquareClick(id)}
+                onClick={() => {if (isMarkable(gameState, id)) onSquareClick(id, gameState)}}
                 isMarkable = {isMarkable(gameState, id)}
                 isMovePending = {gameState.movePending === id}
-                mark={gameState.squares[id].mark}/>)
+                mark={gameState.squares[id].mark}
+                gameState = {gameState}/>)
             })}
           </div>
         )}
@@ -30,7 +35,7 @@ const Board = ({ onSquareClick, onStartGame, gameState }) => {
         <button
           name='startGame'
           onClick={() => onStartGame()}
-          disabled={gameState.id !== undefined}>Start Game!</button>
+          disabled={gameState.id !== null && gameState.winningLine === null}>Start Game!</button>
       </div>
       <Synopsis/>
     </div>
@@ -40,7 +45,8 @@ const Board = ({ onSquareClick, onStartGame, gameState }) => {
 Board.propTypes = {
   onStartGame: PropTypes.func.isRequired,
   onSquareClick: PropTypes.func.isRequired,
-  gameState: PropTypes.object.isRequired
+  gameState: PropTypes.object.isRequired,
+  gameId: PropTypes.string
 }
 
 export default Board

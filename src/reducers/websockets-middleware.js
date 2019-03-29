@@ -1,8 +1,22 @@
 import { actions } from '../actions/tic-tac-toe-actions'
 
-const DEBUG = true
+const DEBUG = false
 
 let connected = false
+
+const moveCommand = (gameId, squareId, mark) => {
+  // FIXME: don't hard-code move_number
+  return {
+    'commands': [{
+      'make_move': {
+        'game_id': gameId,
+        'square': squareId,
+        'mark': mark,
+        'move_number': 1
+      }
+    }]
+  }
+}
 
 const startGameCommand = () => {
   return { 'commands': [{ 'start_game': {} }] }
@@ -63,17 +77,18 @@ const send = (object) => {
 }
 
 const sendAction = reducer => store => next => action => {
-  debug('sendAction',
-    'reducer', reducer, 'store.getState', store.getState(), 'next', next,
-    'action', action)
   connect(store)
-  if (action.type === actions.START_GAME) {
-    send(startGameCommand())
-    return {}
+  switch (action.type) {
+    case actions.START_GAME:
+      send(startGameCommand())
+      break
+    case actions.SUBMIT_MOVE:
+      send(moveCommand(action.gameId, action.squareId, action.mark))
+      break
+    default:
+      return next(action)
   }
-  else {
-    return next(action)
-  }
+  return next(action)
 }
 
 export { sendAction }

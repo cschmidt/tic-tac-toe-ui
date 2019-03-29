@@ -12,6 +12,7 @@ const debug = (...args) => {
 
 
 const initialGameState = {
+  id: null,
   squares: {
     a1: { mark: '' },
     a2: { mark: '' },
@@ -49,10 +50,24 @@ const move = (game = initialGameState, action) => {
         return game
       }
     case actions.GAME_STARTED:
-      return { ...game, id: action.id }
-    case 'SERVER_DATA':
-      debug('SERVER_DATA', action.state)
-      return { ...game, ...action.state }
+      return { ...initialGameState, id: action.id }
+    case 'MOVE_MADE':
+      return { ...game,
+        movePending: null,
+        squares: {
+          ...game.squares,
+          [action.square]: { mark: action.mark }
+        },
+        turn: action.turn
+      }
+    case 'GAME_OVER':
+      return { ...game,
+        winningLine: action.winningLine,
+        outcome: action.outcome,
+        winner: action.winner
+      }
+    case 'ERROR':
+      return { ...game, movePending: null }
     default:
       return game
   }
