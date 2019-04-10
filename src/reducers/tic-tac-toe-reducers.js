@@ -3,7 +3,7 @@ import { players, outcomes } from '@schmidtdisturbr/tic-tac-toe-api/src/tic-tac-
 import { actions } from '../actions/tic-tac-toe-actions'
 
 
-const DEBUG = true
+const DEBUG = false
 
 // Utility functions
 const debug = (...args) => {
