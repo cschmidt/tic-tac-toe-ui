@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@schmidtdisturbr/tic-tac-toe-api": "0.0.1",
+    "amazon-cognito-auth-js": "^1.3.2",
     "aws-sdk": "^2.395.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-google-login": "^5.0.4",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.3",
