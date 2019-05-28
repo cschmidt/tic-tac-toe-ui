@@ -38,12 +38,12 @@ export class Auth {
     let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
       region: 'us-west-2'
     })
-    let user = await cognitoIdentityServiceProvider.getUser({ 'AccessToken': accessToken }).promise()
-    for (let attribute of user.UserAttributes) {
-      console.log(attribute)
-      this._userAttributes[attribute.Name] = attribute.Value
+    if (accessToken) {
+      let user = await cognitoIdentityServiceProvider.getUser({ 'AccessToken': accessToken }).promise()
+      for (let attribute of user.UserAttributes) {
+        this._userAttributes[attribute.Name] = attribute.Value
+      }
     }
-
   }
 
   signIn() {
@@ -55,28 +55,17 @@ export class Auth {
   }
 
   async checkSignIn() {
-    // this.userPool.parseCognitoWebResponse(window.location.href)
-    let cognitoUser = this.userPool.getCurrentUser()
-    console.log('cognitoUser', cognitoUser)
-    console.log('session', this.userPool.getCachedSession())
-    console.log('userName', this.userPool.getUsername())
-    console.log('signInUserSession', this.userPool.getSignInUserSession())
     let accessToken = this.userPool.getSignInUserSession().accessToken.jwtToken
-    console.log('accessToken', accessToken)
-    // console.log('idToken', this.userPool.getSignInUserSession().idToken.decodePayload())
     let cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider({
       region: 'us-west-2'
     })
     let user = await cognitoIdentityServiceProvider.getUser({ 'AccessToken': accessToken }).promise()
     for (let attribute of user.UserAttributes) {
-      console.log(attribute)
       this._userAttributes[attribute.Name] = attribute.Value
     }
-    console.log('user', user)
   }
 
   isSignedIn() {
-    console.log('isSignedIn, userPool.getCurrentUser', this.userPool.getCurrentUser())
     return this.userPool.getCurrentUser() ? true : false
   }
 

@@ -23,33 +23,43 @@ function PlayButton(props) {
   return <li><Link to='/play'>Play</Link></li>
 }
 
-function CheckSignInButton(props) {
-  return <li><button onClick={props.onClick}>Check SignIn</button></li>
-}
-
 class TopNav extends Component {
 
   constructor(props) {
     super(props)
     this.auth = new Auth()
+    this.state = this.stateFromAuth(this.auth)
   }
 
-  componentDidMount() {
-    this.auth.init()
+  async componentDidMount() {
+    await this.auth.init()
+    this.setState(this.stateFromAuth(this.auth))
   }
 
+  stateFromAuth(auth) {
+    return { user: auth.userAttributes(), signedIn: auth.isSignedIn() }
+  }
 
   render() {
-    return (
-      <ul>
-        <HomeButton />
-        <CheckSignInButton onClick={this.auth.checkSignIn}/>
-        <SignedInUser given_name={this.auth.userAttributes().given_name} />
-        <SignInButton onClick={this.auth.signIn}/>
-        <SignOutButton onClick={this.auth.signOut}/>
-        <PlayButton />
-      </ul>
-    )
+    console.log('state', this.state)
+    if (this.state.signedIn) {
+      return (
+        <ul>
+          <HomeButton />
+          <PlayButton />
+          <SignedInUser given_name={this.state.user.given_name} />
+          <SignOutButton onClick={this.auth.signOut}/>
+        </ul>
+      )
+    }
+    else {
+      return (
+        <ul>
+          <HomeButton />
+          <SignInButton onClick={this.auth.signIn}/>
+        </ul>
+      )
+    }
   }
 }
 
