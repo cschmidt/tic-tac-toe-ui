@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { startGame, submitMove } from './actions/tic-tac-toe-actions'
 import Board from './components/board'
 import Home from './components/home'
-import Login from './components/login'
 import TopNav from './components/top-nav'
 
 
@@ -31,7 +30,6 @@ const App = () => (
     <BrowserRouter>
       <TopNav />
       <Route exact path='/' component={Home}/>
-      <Route path='/login' component={Login}/>
       <Route path='/play' component={BoardContainer}/>
     </BrowserRouter>
   </div>
